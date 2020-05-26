@@ -1,0 +1,32 @@
+{
+  "name": "react-native-infinite-swiper",
+  "title": "react-native-infinite-swiper",
+  "version": "1.0.0",
+  "description": "React Native ViewPager wrapper",
+  "main": "src/index.js",
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gaspard-Bruno/react-native-infinite-swiper.git",
+    "baseUrl": "https://github.com/Gaspard-Bruno/react-native-infinite-swiper"
+  },
+  "keywords": [
+    "react-native",
+    "swipe",
+    "pager"
+  ],
+  "author": {
+    "name": "Gaspard+Bruno",
+    "email": "hello@gaspardbruno.com"
+  },
+  "license": "MIT",
+  "jest": {
+    "preset": "react-native"
+  }
+}
