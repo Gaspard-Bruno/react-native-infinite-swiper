@@ -1,4 +1,4 @@
-# React Native Paging
+# React Native Infinite Swiper
 
 React Native package that wraps [@react-native-community/react-native-viewpager](https://github.com/react-native-community/react-native-viewpager) and adds features:
 
