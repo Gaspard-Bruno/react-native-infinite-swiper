@@ -105,7 +105,7 @@ const Paging = React.forwardRef(({
               viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
             }
           } else if (pos < LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(children.length + 2);
+            viewPagerRef.current.setPageWithoutAnimation(children.length + pos + 1);
           }
 
           if (pos >= (children.length) + LOOP_BUFFER) {
