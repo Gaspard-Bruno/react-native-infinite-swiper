@@ -103,10 +103,10 @@ const Paging = React.forwardRef(({
           if (Platform.OS === 'android') {
             if (pos < LOOP_BUFFER && offset <= 0.1) {
               viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
+            } else if (pos < LOOP_BUFFER) {
+              viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
             }
-          } else if (pos < LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
-          }
+          } 
 
           if (pos >= (children.length) + LOOP_BUFFER) {
             viewPagerRef.current.setPageWithoutAnimation(2);
