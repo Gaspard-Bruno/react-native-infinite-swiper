@@ -1,9 +1,10 @@
 {
   "name": "react-native-infinite-swiper",
   "title": "react-native-infinite-swiper",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "React Native package that wraps @react-native-community/react-native-viewpager that adds loop and touch margins",
   "main": "src/index.js",
+  "source": "src/index.js",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -15,6 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/Gaspard-Bruno/react-native-infinite-swiper.git",
     "baseUrl": "https://github.com/Gaspard-Bruno/react-native-infinite-swiper"
+  },
+  "peerDependencies": {
+    "react-native-pager-view": "^5.2.1"
   },
   "keywords": [
     "react-native",

@@ -1,6 +1,6 @@
 # React Native Infinite Swiper
 
-React Native package that wraps [@react-native-community/react-native-viewpager](https://github.com/react-native-community/react-native-viewpager) and adds features:
+React Native package that wraps [react-native-pager-view](https://github.com/callstack/react-native-pager-view) and adds features:
 
 - Touch margins to turn pages
 - Loop
@@ -9,12 +9,12 @@ React Native package that wraps [@react-native-community/react-native-viewpager]
 
 `$ yarn add react-native-infinite-swiper`
 
-### Requirements
+## Requirements
 
-#### react-native-viewpager
-[@react-native-community/react-native-viewpager](https://github.com/react-native-community/react-native-viewpager) is a dependency for this package that you'll need to add to your project. To install, run the following command:
+### react-native-pager-view
+[react-native-pager-view](https://github.com/callstack/react-native-pager-view) is a peer dependency for this package that you'll need to add to your project. To install, run the following command:
 
-`$ yarn add @react-native-community/viewpager`
+`$ yarn add react-native-pager-view`
 
 ## Usage
 ```js

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useImperativeHandle } from 'react';
 import { View, PanResponder } from 'react-native';
-import ViewPager from '@react-native-community/viewpager';
+import ViewPager from 'react-native-pager-view';
 
 const LOOP_BUFFER = 2;
 const ORIENTATION_HORIZONTAL = 'horizontal'
@@ -13,10 +13,14 @@ const Paging = React.forwardRef(({
   width, 
   height,
   orientation = ORIENTATION_HORIZONTAL,
-  hasTouchMargins = false,
+  touch = false,
   onIndexChanged = () => {},
 }, ref) => {
   let pages = [];
+
+  if (loop) {
+    touch = false
+  }
 
   if (children.length === 1) {
     pages.push(children);
@@ -51,6 +55,7 @@ const Paging = React.forwardRef(({
   const [tapping, setTapping] = useState(false);
   const [moving, setMoving] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(LOOP_BUFFER);
+  const [layoutWidth, setLayoutWidth] = useState(width)
 
   const scrollEnabled = tapping === false;
 
@@ -65,13 +70,13 @@ const Paging = React.forwardRef(({
         // If release is a single tap, meaning latest dx and dy are small values ~ 15
         if (Math.abs(gestureState.dx) < 15 && Math.abs(gestureState.dy) < 15) {
           // If tap is within the margins
-          if (orientation === ORIENTATION_HORIZONTAL && width ) {
-            if (evt.nativeEvent.pageX >= 0.80 * width) {
+          if (orientation === ORIENTATION_HORIZONTAL && layoutWidth ) {
+            if (evt.nativeEvent.locationX >= 0.80 * layoutWidth) {
               if (pages.length > currentPosition + 1) {
                 viewPagerRef.current.setPage(currentPosition + 1);
                 setTapping(true);
               }
-            } else if (evt.nativeEvent.pageX <= 0.20 * height) {
+            } else if (evt.nativeEvent.locationX <= 0.20 * layoutWidth) {
               if (currentPosition - 1 >= 0) {
                 viewPagerRef.current.setPage(currentPosition - 1);
                 setTapping(true);
@@ -96,20 +101,12 @@ const Paging = React.forwardRef(({
       scrollEnabled={scrollEnabled}
       onPageScroll={(e) => {
         const pos = e.nativeEvent.position;
-        const offset = e.nativeEvent.offset;
 
-        // Do the loop jumps
         if (loop) {
-          if (Platform.OS === 'android') {
-            if (pos < LOOP_BUFFER && offset <= 0.1) {
-              viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
-            }
-          } else if (pos < LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
-          }
-
-          if (pos >= (children.length) + LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(2);
+          if (pos === children.length + LOOP_BUFFER) {
+            viewPagerRef.current.setPageWithoutAnimation(LOOP_BUFFER)
+          } else if (pos === LOOP_BUFFER - 1) {
+            viewPagerRef.current.setPageWithoutAnimation(children.length + LOOP_BUFFER)
           }
         }
       }}
@@ -132,7 +129,10 @@ const Paging = React.forwardRef(({
       }}>
       { pages.map((page, index) =>
         (<View
-          { ...(hasTouchMargins ? panResponder.panHandlers : {}) }
+          onLayout={(evt) => {
+            setLayoutWidth(evt?.nativeEvent?.layout?.width)
+          }}
+          { ...(touch ? panResponder.panHandlers : {}) }
           key={index}>
           {page}
         </View>
