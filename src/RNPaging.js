@@ -1,6 +1,6 @@
 import React, { useRef, useState, useImperativeHandle } from 'react';
 import { View, PanResponder } from 'react-native';
-import ViewPager from '@react-native-community/viewpager';
+import ViewPager from 'react-native-pager-view';
 
 const LOOP_BUFFER = 2;
 const ORIENTATION_HORIZONTAL = 'horizontal'
@@ -51,6 +51,7 @@ const Paging = React.forwardRef(({
   const [tapping, setTapping] = useState(false);
   const [moving, setMoving] = useState(false);
   const [currentPosition, setCurrentPosition] = useState(LOOP_BUFFER);
+  const [layoutWidth, setLayoutWidth] = useState(width)
 
   const scrollEnabled = tapping === false;
 
@@ -65,17 +66,23 @@ const Paging = React.forwardRef(({
         // If release is a single tap, meaning latest dx and dy are small values ~ 15
         if (Math.abs(gestureState.dx) < 15 && Math.abs(gestureState.dy) < 15) {
           // If tap is within the margins
-          if (orientation === ORIENTATION_HORIZONTAL && width ) {
-            if (evt.nativeEvent.pageX >= 0.80 * width) {
+          if (orientation === ORIENTATION_HORIZONTAL && layoutWidth ) {
+            if (evt.nativeEvent.locationX >= 0.80 * layoutWidth) {
               if (pages.length > currentPosition + 1) {
-                viewPagerRef.current.setPage(currentPosition + 1);
-                setTapping(true);
+
+                console.log('currentPosition', currentPosition)
+                // viewPagerRef.current.setPage(currentPosition + 1);
+                // setTapping(true);
               }
-            } else if (evt.nativeEvent.pageX <= 0.20 * height) {
-              if (currentPosition - 1 >= 0) {
-                viewPagerRef.current.setPage(currentPosition - 1);
-                setTapping(true);
-              }
+            } else if (evt.nativeEvent.locationX <= 0.20 * layoutWidth) {
+                console.log('currentPosition', currentPosition)
+                // if (currentPosition === LOOP_BUFFER) {
+                //   viewPagerRef.current.setPage(7);
+                //   setTapping(true);
+                // } else {
+                //   viewPagerRef.current.setPage(currentPosition - 1);
+                //   setTapping(true);
+                // }
             }
           }
         }
@@ -96,20 +103,16 @@ const Paging = React.forwardRef(({
       scrollEnabled={scrollEnabled}
       onPageScroll={(e) => {
         const pos = e.nativeEvent.position;
-        const offset = e.nativeEvent.offset;
 
+        console.log('on page scroll', pos)
         // Do the loop jumps
         if (loop) {
-          if (Platform.OS === 'android') {
-            if (pos < LOOP_BUFFER && offset <= 0.1) {
-              viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
-            }
-          } else if (pos < LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(children.length + 1);
+          if (pos < LOOP_BUFFER) {
+            viewPagerRef.current.setPageWithoutAnimation(children.length + LOOP_BUFFER);
           }
 
           if (pos >= (children.length) + LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(2);
+            viewPagerRef.current.setPageWithoutAnimation(LOOP_BUFFER);
           }
         }
       }}
@@ -127,11 +130,16 @@ const Paging = React.forwardRef(({
           onIndexChanged(pos);
         }
 
+        console.log('onPageSelected', pos)
+
         setCurrentPosition(pos);
         setTapping(false);
       }}>
       { pages.map((page, index) =>
         (<View
+          onLayout={(evt) => {
+            setLayoutWidth(evt?.nativeEvent?.layout?.width)
+          }}
           { ...(hasTouchMargins ? panResponder.panHandlers : {}) }
           key={index}>
           {page}
