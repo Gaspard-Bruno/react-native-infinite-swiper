@@ -13,10 +13,14 @@ const Paging = React.forwardRef(({
   width, 
   height,
   orientation = ORIENTATION_HORIZONTAL,
-  hasTouchMargins = false,
+  touch = false,
   onIndexChanged = () => {},
 }, ref) => {
   let pages = [];
+
+  if (loop) {
+    touch = false
+  }
 
   if (children.length === 1) {
     pages.push(children);
@@ -69,20 +73,14 @@ const Paging = React.forwardRef(({
           if (orientation === ORIENTATION_HORIZONTAL && layoutWidth ) {
             if (evt.nativeEvent.locationX >= 0.80 * layoutWidth) {
               if (pages.length > currentPosition + 1) {
-
-                console.log('currentPosition', currentPosition)
-                // viewPagerRef.current.setPage(currentPosition + 1);
-                // setTapping(true);
+                viewPagerRef.current.setPage(currentPosition + 1);
+                setTapping(true);
               }
             } else if (evt.nativeEvent.locationX <= 0.20 * layoutWidth) {
-                console.log('currentPosition', currentPosition)
-                // if (currentPosition === LOOP_BUFFER) {
-                //   viewPagerRef.current.setPage(7);
-                //   setTapping(true);
-                // } else {
-                //   viewPagerRef.current.setPage(currentPosition - 1);
-                //   setTapping(true);
-                // }
+              if (currentPosition - 1 >= 0) {
+                viewPagerRef.current.setPage(currentPosition - 1);
+                setTapping(true);
+              }
             }
           }
         }
@@ -104,15 +102,11 @@ const Paging = React.forwardRef(({
       onPageScroll={(e) => {
         const pos = e.nativeEvent.position;
 
-        console.log('on page scroll', pos)
-        // Do the loop jumps
         if (loop) {
-          if (pos < LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(children.length + LOOP_BUFFER);
-          }
-
-          if (pos >= (children.length) + LOOP_BUFFER) {
-            viewPagerRef.current.setPageWithoutAnimation(LOOP_BUFFER);
+          if (pos === children.length + LOOP_BUFFER) {
+            viewPagerRef.current.setPageWithoutAnimation(LOOP_BUFFER)
+          } else if (pos === LOOP_BUFFER - 1) {
+            viewPagerRef.current.setPageWithoutAnimation(children.length + LOOP_BUFFER)
           }
         }
       }}
@@ -130,8 +124,6 @@ const Paging = React.forwardRef(({
           onIndexChanged(pos);
         }
 
-        console.log('onPageSelected', pos)
-
         setCurrentPosition(pos);
         setTapping(false);
       }}>
@@ -140,7 +132,7 @@ const Paging = React.forwardRef(({
           onLayout={(evt) => {
             setLayoutWidth(evt?.nativeEvent?.layout?.width)
           }}
-          { ...(hasTouchMargins ? panResponder.panHandlers : {}) }
+          { ...(touch ? panResponder.panHandlers : {}) }
           key={index}>
           {page}
         </View>

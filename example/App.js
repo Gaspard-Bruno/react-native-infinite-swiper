@@ -1,21 +1,6 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import Paging from 'react-native-infinite-swiper';
-
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 function createView(index) {
   return (
@@ -26,7 +11,7 @@ function createView(index) {
         justifyContent: 'center',
         alignItems: 'center',
         height: 300,
-        backgroundColor: getRandomColor(),
+        backgroundColor: 'green',
       }}>
       <Text style={styles.viewText}>{index}</Text>
     </View>
@@ -34,35 +19,52 @@ function createView(index) {
 }
 
 const MyPager = () => {
+  const [pager1, setPager1] = useState(0);
+  const [pager2, setPager2] = useState(0);
+  const [pager3, setPager3] = useState(0);
+
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.viewContainer}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.viewContainer}>
         <Text>Normal order from 0 to 5</Text>
-        <Paging style={styles.viewPager} loop>
+        <Paging
+          style={styles.viewPager}
+          loop
+          onIndexChanged={pos => setPager1(pos)}>
           {Array(6)
             .fill()
             .map((_item, i) => createView(i))}
         </Paging>
+        <Text>Page {pager1}</Text>
       </View>
 
       <View style={styles.viewContainer}>
         <Text>Normal order from 0 to 5 vertical</Text>
-        <Paging style={styles.viewPager} loop orientation={'vertical'}>
+        <Paging
+          style={styles.viewPager}
+          loop
+          orientation={'vertical'}
+          onIndexChanged={pos => setPager2(pos)}>
           {Array(6)
             .fill()
             .map((_item, i) => createView(i))}
         </Paging>
-      </View> */}
+        <Text>Page {pager2}</Text>
+      </View>
 
       <View style={styles.viewContainer}>
         <Text>Normal order from 0 to 5 with touch margins</Text>
-        <Paging style={styles.viewPager} loop hasTouchMargins>
-          {Array(6)
+        <Paging
+          style={styles.viewPager}
+          touch
+          onIndexChanged={pos => setPager3(pos)}>
+          {Array(3)
             .fill()
             .map((_item, i) => createView(i))}
         </Paging>
+        <Text>Page {pager3}</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
