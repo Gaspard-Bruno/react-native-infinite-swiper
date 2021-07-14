@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, Dimensions, Animated} from 'react-native';
 import Paging from 'react-native-infinite-swiper';
+import { PinchGestureHandler, State } from 'react-native-gesture-handler'
 
 function createView(index) {
   return (
@@ -18,14 +19,83 @@ function createView(index) {
   );
 }
 
+const { width } = Dimensions.get('window')
+
 const MyPager = () => {
   const [pager1, setPager1] = useState(0);
   const [pager2, setPager2] = useState(0);
   const [pager3, setPager3] = useState(0);
 
+  const scale = new Animated.Value(1);
+  const onZoomEvent = Animated.event(
+    [
+      {
+        nativeEvent: { scale: scale }
+      }
+    ],
+    {
+      useNativeDriver: true
+    }
+  )
+
+  const onZoomStateChange = event => {
+    // if (event.nativeEvent.oldState === State.ACTIVE) {
+    //   Animated.spring(this.scale, {
+    //     toValue: 1,
+    //     useNativeDriver: true
+    //   }).start()
+    // }
+  }
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <View style={styles.viewContainer}>
+        <Text>Normal order from 0 to 5</Text>
+        <Paging
+          style={styles.viewPager}
+          loop
+          onIndexChanged={pos => setPager1(pos)}>
+          <View
+            key={0}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 300,
+              backgroundColor: 'green',
+            }}>
+              <PinchGestureHandler
+                onGestureEvent={onZoomEvent}
+                onHandlerStateChange={onZoomStateChange}>
+                <Animated.Image
+                  source={{
+                    uri:
+                      'https://miro.medium.com/max/1080/1*7SYuZvH2pZnM0H79V4ttPg.jpeg'
+                  }}
+                  style={{
+                    width: width,
+                    height: 300,
+                    transform: [{ scale: scale }]
+                  }}
+                  resizeMode='contain'
+                />
+              </PinchGestureHandler>
+          </View>
+
+          <View
+            key={1}
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 300,
+              backgroundColor: 'green',
+            }}>
+            <Text style={styles.viewText}>test</Text>
+          </View>
+        </Paging>
+        <Text>Page {pager1}</Text>
+      </View>
+      {/* <View style={styles.viewContainer}>
         <Text>Normal order from 0 to 5</Text>
         <Paging
           style={styles.viewPager}
@@ -63,8 +133,8 @@ const MyPager = () => {
             .map((_item, i) => createView(i))}
         </Paging>
         <Text>Page {pager3}</Text>
-      </View>
-    </ScrollView>
+      </View> */}
+    </View>
   );
 };
 
