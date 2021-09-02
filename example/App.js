@@ -11,7 +11,7 @@ function createView(index) {
         justifyContent: 'center',
         alignItems: 'center',
         height: 300,
-        backgroundColor: 'green',
+        backgroundColor: '#060e9f',
       }}>
       <Text style={styles.viewText}>{index}</Text>
     </View>
@@ -21,7 +21,6 @@ function createView(index) {
 const MyPager = () => {
   const [pager1, setPager1] = useState(0);
   const [pager2, setPager2] = useState(0);
-  const [pager3, setPager3] = useState(0);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -53,16 +52,17 @@ const MyPager = () => {
       </View>
 
       <View style={styles.viewContainer}>
-        <Text>Normal order from 0 to 5 with touch margins</Text>
+        <Text>Normal order from 0 to 5 with zoom</Text>
         <Paging
           style={styles.viewPager}
-          touch
-          onIndexChanged={pos => setPager3(pos)}>
-          {Array(3)
+          loop
+          zoom
+          onIndexChanged={pos => setPager2(pos)}>
+          {Array(6)
             .fill()
             .map((_item, i) => createView(i))}
         </Paging>
-        <Text>Page {pager3}</Text>
+        <Text>Page {pager2}</Text>
       </View>
     </ScrollView>
   );
