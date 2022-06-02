@@ -1,18 +1,15 @@
 # React Native Infinite Swiper
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui)](https://github.com/Gaspard-Bruno/react-native-infinite-swiper/blob/main/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Gaspard-Bruno/react-native-infinite-swiper)](https://github.com/Gaspard-Bruno/react-native-infinite-swiper/graphs/commit-activity)
+
 React Native package that wraps [react-native-pager-view](https://github.com/callstack/react-native-pager-view) and adds the following features:
 
 - Loop
 - Zoom
 
-## Roadmap
-- Explore possibility to remove dependency from `react-native-pager-view` and use own pager view solution.
-- Add support for custom icon for closing the zoom modal.
-- Add support for custom props for the zoom modal component.
-- Props details section in the README.md.
-## Getting started
 
-`$ yarn add react-native-infinite-swiper`
+## Getting started
 
 ## Requirements
 
@@ -22,17 +19,31 @@ React Native package that wraps [react-native-pager-view](https://github.com/cal
 ### react-native-modal
 [react-native-modal](https://github.com/react-native-modal/react-native-modal) is a peer dependency that will be required if you enable zoom.
 
-To install these dependencies run the following commands:
+To install these dependencies run the following command:
 
-`$ yarn add react-native-modal`
+```sh
+yarn add react-native-pager-view react-native-modal
 
-`$ yarn add react-native-pager-view`
+```
+or
+```sh
+npm install react-native-pager-view react-native-modal
+```
+
+## Install
+```sh
+yarn add react-native-infinite-swiper
+```
+or
+```sh
+npm install react-native-infinite-swiper
+```
 
 ## Usage
 ```js
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import Paging from 'react-native-infinite-swiper';
+import React from 'react'
+import {StyleSheet, View, Text} from 'react-native'
+import Paging from 'react-native-infinite-swiper'
 
 const MyPager = () => {
   return (
@@ -48,14 +59,33 @@ const MyPager = () => {
         <Text>Second page</Text>
       </View>
     </Paging>
-  );
-};
+  )
+}
 
-export default MyPager;
+export default MyPager
 
 const styles = StyleSheet.create({
   viewPager: {
     flex: 1,
   },
-});
+})
 ```
+
+## API
+| Name                             | Type             | Default                        | Description                                                       
+| -------------------------------- | ---------------- | ------------------------------ | ------------------------------------------
+| `loop`              | `bool`     | `false`          | Swiper will loop when reaching the last slide 
+| `zoom`              | `bool`     | `false`          | Will open a modal with the slide when pressed
+
+## Roadmap
+- Explore possibility to remove dependency from `react-native-pager-view` and use own pager view solution.
+- Add support for custom icon for closing the zoom modal.
+- Add support for custom props for the zoom modal component.
+- Props details section in the README.md.
+
+## Contributing
+Pull requests are welcome! Feel free to open issues and submit PRs, we will review them and answer back as fast as possible.
+
+## 🚀 Authors
+
+- [@mp-12301](https://github.com/mp-12301)
