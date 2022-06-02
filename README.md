@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
 - Explore possibility to remove dependency from `react-native-pager-view` and use own pager view solution.
 - Add support for custom icon for closing the zoom modal.
 - Add support for custom props for the zoom modal component.
-- Props details section in the README.md.
 
 ## Contributing
 Pull requests are welcome! Feel free to open issues and submit PRs, we will review them and answer back as fast as possible.
