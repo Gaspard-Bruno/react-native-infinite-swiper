@@ -11,12 +11,12 @@ React Native package that wraps [react-native-pager-view](https://github.com/cal
 
 ## Getting started
 
-## Requirements
+### Requirements
 
-### react-native-pager-view
+#### react-native-pager-view
 [react-native-pager-view](https://github.com/callstack/react-native-pager-view) is a peer dependency for this package that you'll need to add to your project.
 
-### react-native-modal
+#### react-native-modal
 [react-native-modal](https://github.com/react-native-modal/react-native-modal) is a peer dependency that will be required if you enable zoom.
 
 To install these dependencies run the following command:
@@ -30,7 +30,7 @@ or
 npm install react-native-pager-view react-native-modal
 ```
 
-## Install
+### Install
 ```sh
 yarn add react-native-infinite-swiper
 ```
@@ -39,7 +39,7 @@ or
 npm install react-native-infinite-swiper
 ```
 
-## Usage
+### Usage
 ```js
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
