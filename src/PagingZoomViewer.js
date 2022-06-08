@@ -165,7 +165,7 @@ export const PageViewer = ({
         overflow: 'hidden',
       }}
     >
-      <Animated.View style={{ flex: 1 }}>
+      <Animated.View style={{ zIndex: 9, flex: 1 }}>
         <Animated.View
           style={{
             transform: [{
