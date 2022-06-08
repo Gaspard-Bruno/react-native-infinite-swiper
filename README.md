@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
 | ----------------------------------- | ---------------- | ------------------------------ | ------------------------------------------
 | `width`             | `number`      |                  | Sets `width` of rendered child
 | `height`            | `number`      |                  | Sets `height` of rendered child
-| `zoomOffsetY`       | `number`      | `0`              | Will open a modal with the slide when pressed
 | `onIndexChanged`    | `State setter`|                  | Updates state with new index when user swipes
 | `loop`              | `bool`        | `false`          | Loops infinitely when reaching the last slide 
 | `zoom`              | `bool`        | `false`          | Opens a modal with the slide when pressed
