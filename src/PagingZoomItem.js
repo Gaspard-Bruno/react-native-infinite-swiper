@@ -18,7 +18,7 @@ export const getImageZoomParams = ({
   panToMove = true,
   imageHeight = 100,
   imageWidth = 100,
-  maxOverflow = 100,
+  maxOverflow = imageWidth,
   horizontalOuterRangeOffset = () => {},
   pinchToZoom = true,
   minScale = 0.6,
@@ -253,10 +253,10 @@ export const getImageZoomParams = ({
             imageZoomConfRef.horizontalWholeOuterCounter += diffX
           }
 
-          if (imageZoomConfRef.horizontalWholeOuterCounter > (maxOverflow || 0)) {
-            imageZoomConfRef.horizontalWholeOuterCounter = maxOverflow || 0;
-          } else if (imageZoomConfRef.horizontalWholeOuterCounter < -(maxOverflow || 0)) {
-            imageZoomConfRef.horizontalWholeOuterCounter = -(maxOverflow || 0);
+          if (imageZoomConfRef.horizontalWholeOuterCounter > (maxOverflow * scale || 0)) {
+            imageZoomConfRef.horizontalWholeOuterCounter = maxOverflow * scale || 0;
+          } else if (imageZoomConfRef.horizontalWholeOuterCounter < -(maxOverflow * scale || 0)) {
+            imageZoomConfRef.horizontalWholeOuterCounter = -(maxOverflow * scale || 0);
           }
 
           if (imageZoomConfRef.horizontalWholeOuterCounter !== 0) {
@@ -430,14 +430,10 @@ export const getImageZoomParams = ({
           }).start()
         }
 
+        // resetting values after gesture release
         imageZoomConfRef.horizontalWholeOuterCounter = 0
-    
-        // this.imageDidMove('onPanResponderRelease');
-      }
-    },
-    onPanResponderTerminate: () => {
-
-    }
+        imageZoomConfRef.scale = 0
+      }}
   })
 
   const animateConf = {

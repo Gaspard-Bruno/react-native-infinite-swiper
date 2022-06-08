@@ -16,7 +16,8 @@ export const usePageViewer = ({
   initialPage = 0,
   currentPage,
   loop,
-  show
+  show,
+  onClose
 }) => {
 
   const initialPageDetermined = useMemo(() => loop ? initialPage + 1 : initialPage, [loop, initialPage])
@@ -46,16 +47,19 @@ export const usePageViewer = ({
     pageViewerPropsRef.current.positionX.setValue(pageViewerPropsRef.current.positionXNumber)
   }
 
-  const handleResponderRelease = (vx) => {
-    const vxRTL = vx
-    const isLeftMove = pageViewerPropsRef.current.positionXNumber
-        - pageViewerPropsRef.current.standardPositionX > flipThreshold
-    const isRightMove = pageViewerPropsRef.current.positionXNumber
-        - pageViewerPropsRef.current.standardPositionX < -flipThreshold
+  /**
+   * Swiping behaviour definition after user's gesture is released
+   */
+  const handleResponderRelease = (vx, scale) => {
 
-    if (vxRTL > 0.7) {
+    const isLeftMove = (pageViewerPropsRef.current.positionXNumber
+        - pageViewerPropsRef.current.standardPositionX > flipThreshold) * scale
+    const isRightMove = (pageViewerPropsRef.current.positionXNumber
+        - pageViewerPropsRef.current.standardPositionX < -flipThreshold) * scale
+
+    if (vx > 0.7 * scale) {
       goBack()
-    } else if (vxRTL < -0.7) {
+    } else if (vx < -0.7 * scale) {
       goNext()
     } else if (isLeftMove) {
       goBack()
@@ -154,7 +158,7 @@ export const PageViewer = ({
         overflow: 'hidden',
       }}
     >
-      <Animated.View style={{ zIndex: 9, flex: 1 }}>
+      <Animated.View style={{ flex: 1 }}>
         <Animated.View
           style={{
             transform: [{
