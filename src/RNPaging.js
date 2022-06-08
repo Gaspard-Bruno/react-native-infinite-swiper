@@ -4,7 +4,6 @@ import ViewPager from 'react-native-pager-view';
 
 const LOOP_BUFFER = 2;
 const ORIENTATION_HORIZONTAL = 'horizontal'
-const ORIENTATION_VERTICAL = 'vertical'
 
 const Paging = React.forwardRef(({
   children,
