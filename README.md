@@ -72,10 +72,15 @@ const styles = StyleSheet.create({
 ```
 
 ## API
-| Name                             | Type             | Default                        | Description                                                       
-| -------------------------------- | ---------------- | ------------------------------ | ------------------------------------------
-| `loop`              | `bool`     | `false`          | Swiper will loop when reaching the last slide 
-| `zoom`              | `bool`     | `false`          | Will open a modal with the slide when pressed
+| Name                                | Type             | Default                        | Description                                                       
+| ----------------------------------- | ---------------- | ------------------------------ | ------------------------------------------
+| `width`             | `number`      |                  | Sets `width` of rendered child
+| `height`            | `number`      |                  | Sets `height` of rendered child
+| `onIndexChanged`    | `State setter`|                  | Updates state with new index when user swipes
+| `loop`              | `bool`        | `false`          | Loops infinitely when reaching the last slide 
+| `zoom`              | `bool`        | `false`          | Opens a modal with the slide when pressed
+| `children`          | `element`     |                  | Accepts all the children elements to be rendered
+| `orientation`       | `Orientation` | `horizontal`     | Set `horizontal` or `vertical` scrolling orientation
 
 ## Roadmap
 - Explore possibility to remove dependency from `react-native-pager-view` and use own pager view solution.
