@@ -253,10 +253,10 @@ export const getImageZoomParams = ({
             imageZoomConfRef.horizontalWholeOuterCounter += diffX
           }
 
-          if (imageZoomConfRef.horizontalWholeOuterCounter > (maxOverflow * scale || 0)) {
-            imageZoomConfRef.horizontalWholeOuterCounter = maxOverflow * scale || 0;
-          } else if (imageZoomConfRef.horizontalWholeOuterCounter < -(maxOverflow * scale || 0)) {
-            imageZoomConfRef.horizontalWholeOuterCounter = -(maxOverflow * scale || 0);
+          if (imageZoomConfRef.horizontalWholeOuterCounter > (maxOverflow * imageZoomConfRef.scale || 0)) {
+            imageZoomConfRef.horizontalWholeOuterCounter = maxOverflow * imageZoomConfRef.scale || 0;
+          } else if (imageZoomConfRef.horizontalWholeOuterCounter < -(maxOverflow * imageZoomConfRef.scale || 0)) {
+            imageZoomConfRef.horizontalWholeOuterCounter = -(maxOverflow * imageZoomConfRef.scale || 0);
           }
 
           if (imageZoomConfRef.horizontalWholeOuterCounter !== 0) {
@@ -356,7 +356,7 @@ export const getImageZoomParams = ({
         }, doubleClickInterval)
       } else {
         if (responderRelease) {
-          responderRelease(gestureState.vx, gestureState.vy);
+          responderRelease(gestureState.vx, gestureState.vy, imageZoomConfRef.scale);
         }
 
         if (enableCenterFocus && imageZoomConfRef.scale < 1) {

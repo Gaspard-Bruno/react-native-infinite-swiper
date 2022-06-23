@@ -50,7 +50,7 @@ export const usePageViewer = ({
   /**
    * Swiping behaviour definition after user's gesture is released
    */
-  const handleResponderRelease = (vx, scale) => {
+  const handleResponderRelease = (vx, vy, scale) => {
     const isLeftMove =
       (pageViewerPropsRef.current.positionXNumber -
         pageViewerPropsRef.current.standardPositionX >

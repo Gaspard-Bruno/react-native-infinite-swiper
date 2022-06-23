@@ -122,7 +122,6 @@ const InfiniteSwiper = ({
               return (
                 <PageZoomItem
                   key={i}
-                  offsetY={zoomOffsetY}
                   cropWidth={cropWidth}
                   cropHeight={cropHeight}
                   imageWidth={imageWidth}
