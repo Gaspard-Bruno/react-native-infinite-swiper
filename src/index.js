@@ -22,7 +22,6 @@ const InfiniteSwiper = ({
   onIndexChanged,
   loop = true,
   zoom = false,
-  zoomOffsetY = 0,
   children = [],
   orientation,
 }) => {
@@ -31,14 +30,18 @@ const InfiniteSwiper = ({
 
   const isShowing = useRef(false);
 
-  const {positionX, handleHorizontalOuterRangeOffset, handleResponderRelease} =
-    usePageViewer({
-      loop,
-      length: children.length,
-      width: Dimensions.get('window').width,
-      currentPage: page,
-      show,
-    });
+  const {
+    positionX,
+    handleHorizontalOuterRangeOffset,
+    handleResponderRelease,
+  } = usePageViewer({
+    loop,
+    length: children.length,
+    width: Dimensions.get('window').width,
+    onClose: () => setShow(false),
+    currentPage: page,
+    show,
+  })
 
   const cropWidth = Dimensions.get('window').width;
   const cropHeight = Dimensions.get('window').height;
@@ -88,7 +91,6 @@ const InfiniteSwiper = ({
         </Paging>
       </View>
 
-      {}
       {zoom && (
         <Modal
           style={{margin: 0}}

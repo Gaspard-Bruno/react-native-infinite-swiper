@@ -18,8 +18,8 @@
     "baseUrl": "https://github.com/Gaspard-Bruno/react-native-infinite-swiper"
   },
   "peerDependencies": {
-    "react-native-pager-view": "^5.2.1",
-    "react-native-modal": "^13.0.0"
+    "react-native-modal": "^13.0.0",
+    "react-native-pager-view": "^5.2.1"
   },
   "keywords": [
     "react-native",

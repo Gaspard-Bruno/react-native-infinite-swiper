@@ -356,7 +356,7 @@ export const getImageZoomParams = ({
         }, doubleClickInterval)
       } else {
         if (responderRelease) {
-          responderRelease(gestureState.vx, imageZoomConfRef.scale);
+          responderRelease(gestureState.vx, gestureState.vy);
         }
 
         if (enableCenterFocus && imageZoomConfRef.scale < 1) {
@@ -469,7 +469,6 @@ export const ImageZoom = ({
   parentImageZoomParams,
   children,
   withZoom = true,
-  offsetY = 0,
   ...props
 }) => {
   const {
@@ -487,12 +486,8 @@ export const ImageZoom = ({
     height: props.cropHeight,
   }
 
-  if (offsetY) {
-    pagingZoomItemStyle.paddingTop = offsetY
-  } else {
-    pagingZoomItemStyle.justifyContent = 'center'
-    pagingZoomItemStyle.alignItems = 'center'
-  }
+  pagingZoomItemStyle.justifyContent = 'center'
+  pagingZoomItemStyle.alignItems = 'center'
   
   return (
     <View 
