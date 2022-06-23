@@ -1,7 +1,7 @@
 {
   "name": "react-native-infinite-swiper",
   "title": "react-native-infinite-swiper",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "React Native package that wraps @react-native-community/react-native-viewpager that adds loop and touch margins",
   "main": "src/index.js",
   "source": "src/index.js",
